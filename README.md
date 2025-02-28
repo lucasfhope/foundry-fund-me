@@ -23,19 +23,27 @@ make
 
 This project includes unit and integration tests. To run the tests, use:
 
-`forge test`
+```bash
+forge test
+```
 
 or
 
-`make test`
+```bash
+make test
+```
 
 You can also test a single test function with:
 
-`forge test --match-test testFunctionName`
+```bash
+forge test --match-test testFunctionName
+```
 
 To test the coverage of the tests, you can use:
 
-`forge coverage`
+```bash
+forge coverage
+```
 
 ## Deployment to a testnet or mainnet
 
