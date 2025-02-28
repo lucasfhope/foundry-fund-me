@@ -15,158 +15,87 @@ This is a simple smart contract that allows users to contribute ETH, and lets th
 
 ```bash
 git clone https://github.com/lucasfhope/Fund-Me-ETH.git
-cd foundry-fund-me-cu
+cd Fund-Me-ETH
 make
 ```
 
-Optional Gitpod
+## Testing
 
-If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the clone this repo part.
+This project includes unit and integration tests. To run the tests, use:
 
-Open in Gitpod
-Usage
-Deploy
-
-forge script script/DeployFundMe.s.sol
-
-Testing
-
-We talk about 4 test tiers in the video.
-
-    Unit
-    Integration
-    Forked
-    Staging
-
-This repo we cover #1 and #3.
-
-forge test
+`forge test`
 
 or
 
-// Only run test functions matching the specified regex pattern.
+`make test`
 
-"forge test -m testFunctionName" is deprecated. Please use 
+You can also test a single test function with:
 
-forge test --match-test testFunctionName
+`forge test --match-test testFunctionName`
 
-or
+To test the coverage of the tests, you can use:
 
-forge test --fork-url $SEPOLIA_RPC_URL
+`forge coverage`
 
-Test Coverage
+## Deployment to a testnet or mainnet
 
-forge coverage
+1. Setup environment variables
 
-Local zkSync
+You'll want to set your SEPOLIA_RPC_URL and DEV_ACCOUNT_PRIVATE_KEY as environment variables. You can add them to a .env file. 
 
-The instructions here will allow you to work with this repo on zkSync.
-(Additional) Requirements
+    - DEV_ACCOUNT_PRIVATE_KEY: The private key of your account. THIS IS FOR DEVELOPMENT ONLY, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
+        
+    - SEPOLIA_RPC_URL: This is url of the sepolia testnet node you're working with. You can get setup with one for free from Alchemy.
 
-In addition to the requirements above, you'll need:
+Optionally, add your ETHERSCAN_API_KEY if you want to verify your contract on [Etherscan](https://etherscan.io).
 
-    foundry-zksync
-        You'll know you did it right if you can run forge --version and you see a response like forge 0.0.2 (816e00b 2023-03-16T00:05:26.396218Z).
-    npx & npm
-        You'll know you did it right if you can run npm --version and you see a response like 7.24.0 and npx --version and you see a response like 8.1.0.
-    docker
-        You'll know you did it right if you can run docker --version and you see a response like Docker version 20.10.7, build f0df350.
-        Then, you'll want the daemon running, you'll know it's running if you can run docker --info and in the output you'll see something like the following to know it's running:
+2. Get testnet ETH
 
-Client:
- Context:    default
- Debug Mode: false
+You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract.
 
-Setup local zkSync node
+3. Deploy
 
-Run the following:
-
-npx zksync-cli dev config
-
-And select: In memory node and do not select any additional modules.
-
-Then run:
-
-npx zksync-cli dev start
-
-And you'll get an output like:
-
-In memory node started v0.1.0-alpha.22:
- - zkSync Node (L2):
-  - Chain ID: 260
-  - RPC URL: http://127.0.0.1:8011
-  - Rich accounts: https://era.zksync.io/docs/tools/testing/era-test-node.html#use-pre-configured-rich-wallets
-
-Deploy to local zkSync node
-
-make deploy-zk
-
-This will deploy a mock price feed and a fund me contract to the zkSync node.
-Deployment to a testnet or mainnet
-
-    Setup environment variables
-
-You'll want to set your SEPOLIA_RPC_URL and PRIVATE_KEY as environment variables. You can add them to a .env file, similar to what you see in .env.example.
-
-    PRIVATE_KEY: The private key of your account (like from metamask). NOTE: FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
-        You can learn how to export it here.
-    SEPOLIA_RPC_URL: This is url of the sepolia testnet node you're working with. You can get setup with one for free from Alchemy
-
-Optionally, add your ETHERSCAN_API_KEY if you want to verify your contract on Etherscan.
-
-    Get testnet ETH
-
-Head over to faucets.chain.link and get some testnet ETH. You should see the ETH show up in your metamask.
-
-    Deploy
-
+```bash
 forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
+```
 
-Scripts
+## Scripts
 
 After deploying to a testnet or local net, you can run the scripts.
 
-Using cast deployed locally example:
+```bash
+forge script script/Interactions.s.sol:FundFundMe --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY  --broadcast
+forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY  --broadcast
+```
 
-cast send <FUNDME_CONTRACT_ADDRESS> "fund()" --value 0.1ether --private-key <PRIVATE_KEY>
+or you can use `cast`:
 
-or
+```bash
+cast send <CONTRACT_ADDRESS> "fund()" --value 0.1ether --private-key <PRIVATE_KEY>
+cast send <CONTRACT_ADDRESS> "withdraw()"  --private-key <PRIVATE_KEY>
+```
 
-forge script script/Interactions.s.sol:FundFundMe --rpc-url sepolia  --private-key $PRIVATE_KEY  --broadcast
-forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url sepolia  --private-key $PRIVATE_KEY  --broadcast
+## Estimate gas
 
-Withdraw
+You can estimate how much gas things cost by running by using:
 
-cast send <FUNDME_CONTRACT_ADDRESS> "withdraw()"  --private-key <PRIVATE_KEY>
-
-Estimate gas
-
-You can estimate how much gas things cost by running:
-
+```bash
 forge snapshot
+```
 
-And you'll see an output file called .gas-snapshot
-Formatting
+And you'll see an output file called `.gas-snapshot`
 
-To run code formatting:
 
+## Formatting
+
+To run code formatting, use:
+
+```bash
 forge fmt
+```
 
-Additional Info:
+# My Fund Me Smart Contract
 
-Some users were having a confusion that whether Chainlink-brownie-contracts is an official Chainlink repository or not. Here is the info. Chainlink-brownie-contracts is an official repo. The repository is owned and maintained by the chainlink team for this very purpose, and gets releases from the proper chainlink release process. You can see it's still the smartcontractkit org as well.
+This contract is deployed on the Sepolia testnet. You can interact with my contract and send it SepoliaETH at this address:
 
-https://github.com/smartcontractkit/chainlink-brownie-contracts
-Let's talk about what "Official" means
-
-The "official" release process is that chainlink deploys it's packages to npm. So technically, even downloading directly from smartcontractkit/chainlink is wrong, because it could be using unreleased code.
-
-So, then you have two options:
-
-    Download from NPM and have your codebase have dependencies foreign to foundry
-    Download from the chainlink-brownie-contracts repo which already downloads from npm and then packages it nicely for you to use in foundry.
-
-Summary
-
-    That is an official repo maintained by the same org
-    It downloads from the official release cycle chainlink/contracts use (npm) and packages it nicely for digestion from foundry.
+`0x171347a51e682dD3457a30738fE7228b5c33Ec5A`
