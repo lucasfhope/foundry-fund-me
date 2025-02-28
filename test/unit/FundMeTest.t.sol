@@ -3,11 +3,11 @@ pragma solidity ^0.8.18;
 
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
-import {DeployFundMe} from "../../script/DeployFundMe.s.sol";    
+import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test {
     FundMe fundMe;
-    
+
     address USER = makeAddr("user");
     uint256 constant SEND_VALUE = 0.1 ether;
     uint256 constant STARTING_AMT = 10 ether;
@@ -28,12 +28,12 @@ contract FundMeTest is Test {
 
     function testPriceFeedVersionIsCorrect() public view {
         uint256 version = fundMe.getVersion();
-        if (block.chainid == 1) { 
+        if (block.chainid == 1) {
             assertEq(version, 6);
-        } else { 
+        } else {
             assertEq(version, 4);
         }
-    }       
+    }
 
     function testFundFailsWithoutEnoughEth() public {
         vm.expectRevert();
@@ -46,7 +46,7 @@ contract FundMeTest is Test {
         _;
     }
 
-    function  testFundUpdatesFundedDataStructure() public funded {
+    function testFundUpdatesFundedDataStructure() public funded {
         uint256 amountFunded = fundMe.getAddressToAmountFunded(USER);
         assertEq(amountFunded, SEND_VALUE);
     }
@@ -71,9 +71,7 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
 
-        assertEq(
-            endingOwnerBalance,
-            startingOwnerBlance + startingFundMeBalance);
+        assertEq(endingOwnerBalance, startingOwnerBlance + startingFundMeBalance);
         assertEq(endingFundMeBalance, 0);
     }
 
@@ -81,7 +79,7 @@ contract FundMeTest is Test {
         uint160 numberOfFunders = 12;
         uint160 startingFunderIndex = 1;
 
-        for(uint160 i = startingFunderIndex; i <= numberOfFunders; i++) {
+        for (uint160 i = startingFunderIndex; i <= numberOfFunders; i++) {
             hoax(address(i), STARTING_AMT);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -94,11 +92,6 @@ contract FundMeTest is Test {
         vm.stopPrank();
 
         assert(address(fundMe).balance == 0);
-        assert(
-            startingOwnerBalance + startingFundMeBalance ==
-            fundMe.getOwner().balance 
-        );
+        assert(startingOwnerBalance + startingFundMeBalance == fundMe.getOwner().balance);
     }
 }
-
-   

@@ -16,10 +16,7 @@ contract FundFundMe is Script {
     }
 
     function run() external {
-        address contractAddress = DevOpsTools.get_most_recent_deployment(
-            "FundMe", 
-            block.chainid
-        );
+        address contractAddress = DevOpsTools.get_most_recent_deployment("FundMe", block.chainid);
 
         fundFundMe(contractAddress);
     }
@@ -34,10 +31,7 @@ contract WithdrawFundMe is Script {
     }
 
     function run() external {
-        address contractAddress = DevOpsTools.get_most_recent_deployment(
-            "FundMe", 
-            block.chainid
-        );
+        address contractAddress = DevOpsTools.get_most_recent_deployment("FundMe", block.chainid);
 
         withdrawFundMe(contractAddress);
     }

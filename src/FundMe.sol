@@ -38,10 +38,10 @@ contract FundMe {
         s_funders.push(msg.sender);
     }
 
-    /** 
+    /**
      * @notice sends all funds in the contract to the owner address
      * and resets the funder balances and funders array
-     */ 
+     */
     function withdraw() public onlyOwner {
         address[] memory funders = s_funders;
         for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
@@ -60,7 +60,6 @@ contract FundMe {
     receive() external payable {
         fund();
     }
-
 
     /**
      *  @notice Gets the amount that an address has funded
