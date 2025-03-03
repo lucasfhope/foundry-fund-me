@@ -21,3 +21,6 @@ test :; forge test
 
 deploy-sepolia:
 	forge script script/DeployFundMe.s.sol:DeployFundMe --rpc-url $(SEPOLIA_RPC_URL)  --private-key  $(DEV_ACCOUNT_PRIVATE_KEY) --broadcast  --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
+
+send-sepolia-eth:
+	forge script script/Interactions.s.sol:FundFundMe --rpc-url $(SEPOLIA_RPC_URL) --private-key $(DEV_ACCOUNT_PRIVATE_KEY) --broadcast  --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
