@@ -1,6 +1,9 @@
-# solidity-fund-me
+# Fund Me Solidity Smart Contract
 
 This is a simple smart contract that allows users to contribute ETH, and lets the contract owner withdraw the accumulated funds.
+
+- [#Getting Started]
+- 
 
 # Getting Started
 
@@ -19,9 +22,11 @@ cd solidity-fund-me
 make
 ```
 
+# Usage
+
 ## Testing
 
-This project includes unit and integration tests. To run the tests, use:
+To run the unit and integration tests, use:
 
 ```bash
 forge test
@@ -31,6 +36,12 @@ You can also test a single test function with:
 
 ```bash
 forge test --mt testFunctionName
+```
+
+To run a forked test on a forked Seplolia network, use:
+
+```bash
+forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
 To test the coverage of the tests, you can use:
@@ -53,7 +64,7 @@ If you would like to use your environment variables from `.env` on the command l
 
 2. Get testnet ETH
 
-You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract.
+You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract. Check out [https://faucets.chain.link/].
 
 3. Deploy
 
@@ -87,7 +98,6 @@ forge snapshot
 
 And you'll see an output file called `.gas-snapshot`.
 
-
 ## Formatting
 
 To run soldity code formatting, use:
@@ -100,7 +110,7 @@ forge fmt
 
 You can use the arranged Makefile for all of the previous commands. 
 
-If you want to deploy or interact with a contract on the SEPLOIA testnet, make sure your `.env` file is set up with the correct environment variables. To deploy or interact, make sure you add `ARGS="sepolia" at the end of the command or the command will be run on your local anvil chain. For example:
+If you want to deploy or interact with a contract on the SEPLOIA testnet, make sure your `.env` file is set up with the correct environment variables. To deploy or interact, make sure you add `ARGS="sepolia" at the end of the command or the command will default to your local anvil chain. For example:
 
 ```bash
 make deploy ARGS="sepolia"
