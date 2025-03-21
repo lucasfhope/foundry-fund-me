@@ -2,7 +2,7 @@
 
 This is a simple smart contract that allows users to contribute ETH, and lets the contract owner withdraw the accumulated funds.
 
-- [#Getting Started]
+- (#Getting Started)
 - 
 
 # Getting Started
@@ -56,15 +56,15 @@ forge coverage
 
 Look at the env.example and set up your own `.env` file:
 
-    - SEPOLIA_RPC_URL: This is url of the Sepolia testnet node you are working with. You can get setup with one for free through Alchemy.
-    - ETHERSCAN_API_KEY: This will allow you to verify your contract on [Etherscan](https://etherscan.io).
-    - KEYSTORE_FILE_PATH: Store your wallet private key locally with the command `cast wallet import [name] --interactive`
+- SEPOLIA_RPC_URL: This is url of the Sepolia testnet node you are working with. You can get setup with one for free through Alchemy.
+- ETHERSCAN_API_KEY: This will allow you to verify your contract on [Etherscan](https://etherscan.io).
+- KEYSTORE_FILE_PATH: Store your wallet private key locally with the command `cast wallet import [name] --interactive`
 
-If you would like to use your environment variables from `.env` on the command line, run the command `source .env`. You can also use the name of the key rather than the entire file path after `--keystore` on the command line.
+If you would like to use your environment variables from `.env` on the command line, run the command `source .env`. You can also use the name of the key rather than the entire file path after `--keystore` on the command line. If you use keystore, you will need to input your password you set when you created the key whenever you want to use it.
 
 2. Get testnet ETH
 
-You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract. Check out [https://faucets.chain.link/].
+You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract. Check out (https://faucets.chain.link/).
 
 3. Deploy
 
