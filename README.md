@@ -2,8 +2,21 @@
 
 This is a simple smart contract that allows users to contribute ETH, and lets the contract owner withdraw the accumulated funds.
 
-- (#Getting Started)
-- 
+- [Getting Started](#getting-started)
+    -  [Requirements](#requirements)
+    -  [Quickstart](#quickstart)
+-  [Usage](#usage)
+    - [Test](#test)
+    - [Deploy](#deploy)
+        - [Local deployment](#local-deployment)
+        - [Deployment to the Sepolia testnet](#deployment-to-the-sepolia-testnet)
+    - [Interact](#Interact)
+        - [Local anvil chain](#local-anvil-chain)
+        - [Sepolia testnet](#sepolia-testnet)    
+    - [Estimate gas](#estimate-gas)
+    - [Format](#format)
+    - [Use the Makefile](#use-the-makefile)
+- [My Fund Me Smart Contract](#my-fund-me-smart-contract)
 
 # Getting Started
 
@@ -24,9 +37,9 @@ make
 
 # Usage
 
-## Testing
+## Test
 
-To run the unit and integration tests, use:
+To run the unit and integration tests, use the command:
 
 ```bash
 forge test
@@ -38,19 +51,37 @@ You can also test a single test function with:
 forge test --mt testFunctionName
 ```
 
-To run a forked test on a forked Seplolia network, use:
+To run a forked test on a forked Seplolia testnet, you must have a rpc-url of a Sepolia testnet node. It is also preferable to have this in a `.env` file. For more information on how to do this, click [here](#deployment-to-the-sepolia-testnet). Then use the command:
 
 ```bash
 forge test --fork-url $SEPOLIA_RPC_URL
 ```
 
-To test the coverage of the tests, you can use:
+To test the coverage of the tests, you can use the command:
 
 ```bash
 forge coverage
 ```
 
-## Deployment to the Sepolia test network
+## Deploy
+
+### Local deployment
+
+1. Run a local anvil node
+
+```bash
+make anvil
+```
+
+Make sure this node remains running in a seperate terminal.
+
+2. Deploy to the local anvil chain
+
+```bash
+make deploy
+```
+
+### Deployment to the Sepolia testnet
 
 1. Setup environment variables
 
@@ -64,7 +95,7 @@ If you would like to use your environment variables from `.env` on the command l
 
 2. Get testnet ETH
 
-You will need to get SepoliaETH from a faucet to deploy this contract or interact with my contract. Check out (https://faucets.chain.link/).
+You will need to get Sepolia ETH from a faucet to deploy this contract or interact with my contract. Check out [faucets.chain.link](https://faucets.chain.link/).
 
 3. Deploy
 
@@ -72,20 +103,30 @@ You will need to get SepoliaETH from a faucet to deploy this contract or interac
 forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --keystore $KEYSTORE_FILE_PATH --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
 ```
 
-## Scripts
+## Interact
 
-After deploying to the Sepolia testnet, you can use the scripts to interact with the contract.
+After deploying to your local anvil chain or the Sepolia testnet, you can use the scripts or `cast` to interact with the contract.
 
+### Local anvil chain
+```bash
+forge script script/Interactions.s.sol:FundFundMe --rpc-url http://localhost:8545 --private-key <ANVIL PRIVATE KEY> --broadcast
+forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url http://localhost:8545 --private-key <ANVIL PRIVATE KEY> --broadcast
+```
+or
+```bash
+cast send <CONTRACT_ADDRESS> "fund()" --value 0.1ether --rpc-url $EPOLIA_RPC_URL  --private-key <ANVIL PRIVATE KEY>
+cast send <CONTRACT_ADDRESS> "withdraw()" --rpc-url $SEPOLIA_RPC_URL  --private-key <ANVIL PRIVATE KEY>
+```
+
+### Sepolia testnet
 ```bash
 forge script script/Interactions.s.sol:FundFundMe --rpc-url $SEPOLIA_RPC_URL --keystore $KEYSTORE_FILE_PATH  --broadcast
 forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url $SEPOLIA_RPC_URL --keystore $KEYSTORE_FILE_PATH  --broadcast
 ```
-
-or you can use `cast`:
-
+or
 ```bash
-cast send <CONTRACT_ADDRESS> "fund()" --value 0.1ether --keystore $KEYSTORE_FILE_PATH --rpc-url $EPOLIA_RPC_URL
-cast send <CONTRACT_ADDRESS> "withdraw()"  --keystore $KEYSTORE_FILE_PATH --rpc-url $SEPOLIA_RPC_URL
+cast send <CONTRACT_ADDRESS> "fund()" --value 0.1ether  --rpc-url $SEPOLIA_RPC_URL --keystore $KEYSTORE_FILE_PATH
+cast send <CONTRACT_ADDRESS> "withdraw()" --rpc-url $SEPOLIA_RPC_URL --keystore $KEYSTORE_FILE_PATH
 ```
 
 ## Estimate gas
@@ -98,7 +139,7 @@ forge snapshot
 
 And you'll see an output file called `.gas-snapshot`.
 
-## Formatting
+## Format
 
 To run soldity code formatting, use:
 
@@ -106,11 +147,11 @@ To run soldity code formatting, use:
 forge fmt
 ```
 
-## Makefile
+## Use the Makefile
 
 You can use the arranged Makefile for all of the previous commands. 
 
-If you want to deploy or interact with a contract on the SEPLOIA testnet, make sure your `.env` file is set up with the correct environment variables. To deploy or interact, make sure you add `ARGS="sepolia" at the end of the command or the command will default to your local anvil chain. For example:
+If you want to deploy or interact with the contract on the SEPLOIA testnet, make sure your `.env` file is set up with the correct environment variables. To deploy or interact with the contract, make sure you add `ARGS="sepolia" at the end of the command or the command will default to anvil. For example:
 
 ```bash
 make deploy ARGS="sepolia"
@@ -118,6 +159,8 @@ make deploy ARGS="sepolia"
 
 # My Fund Me Smart Contract
 
-This contract is deployed on the Sepolia testnet. You can interact with my contract and send it SepoliaETH at this address:
+This contract is deployed on the Sepolia testnet. You can interact with my contract and send it Sepolia ETH at this address:
 
 `0x171347a51e682dD3457a30738fE7228b5c33Ec5A`
+
+You can also check out my contract on [Etherscan](https://sepolia.etherscan.io/address/0x171347a51e682dD3457a30738fE7228b5c33Ec5A).
