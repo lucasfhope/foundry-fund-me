@@ -87,7 +87,7 @@ make deploy
 
 Look at the env.example and set up your own `.env` file:
 
-- SEPOLIA_RPC_URL: This is url of the Sepolia testnet node you are working with. You can get setup with one for free through Alchemy.
+- SEPOLIA_RPC_URL: This is url of the Sepolia testnet node you are working with. You can get setup with one for free through [Alchemy](https://www.alchemy.com).
 - ETHERSCAN_API_KEY: This will allow you to verify your contract on [Etherscan](https://etherscan.io).
 - KEYSTORE_FILE_PATH: Store your wallet private key locally with the command `cast wallet import [name] --interactive`
 
