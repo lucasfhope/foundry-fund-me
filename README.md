@@ -161,6 +161,6 @@ make deploy ARGS="sepolia"
 
 This contract is deployed on the Sepolia testnet. You can interact with my contract and send it Sepolia ETH at this address:
 
-`0x171347a51e682dD3457a30738fE7228b5c33Ec5A`
+`0x29b5aD2b4a2930174c7e6527ff144d29f1523045`
 
-You can also check out my contract on [Etherscan](https://sepolia.etherscan.io/address/0x171347a51e682dD3457a30738fE7228b5c33Ec5A).
+You can also check out my contract on [Etherscan](https://sepolia.etherscan.io/address/0x29b5aD2b4a2930174c7e6527ff144d29f1523045).
