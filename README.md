@@ -25,7 +25,7 @@ This is a simple smart contract that allows users to contribute ETH, and lets th
 - **git**
     - Try running `git --version` to see if it is installed
 - **foundry**
-    - Try running `forge --version` to se if it is installed
+    - Try running `forge --version` to see if it is installed
 
 ## Quickstart
 
