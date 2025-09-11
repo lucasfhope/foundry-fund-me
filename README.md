@@ -27,8 +27,8 @@ This is a simple smart contract that allows users to contribute ETH, and lets th
 ## Quickstart
 
 ```bash
-git clone https://github.com/lucasfhope/solidity-fund-me.git
-cd solidity-fund-me
+git clone https://github.com/lucasfhope/foundry-fund-me.git
+cd foundry-fund-me
 make
 ```
 
