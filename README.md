@@ -2,20 +2,17 @@
 
 This is a simple smart contract that allows users to contribute ETH, and lets the contract owner withdraw the accumulated funds.
 
+- [Fund Me Solidity Smart Contract](#fund-me-solidity-smart-contract)
 - [Getting Started](#getting-started)
-    -  [Requirements](#requirements)
-    -  [Quickstart](#quickstart)
--  [Usage](#usage)
-    - [Test](#test)
-    - [Deploy](#deploy)
-        - [Local deployment](#local-deployment)
-        - [Deployment to the Sepolia testnet](#deployment-to-the-sepolia-testnet)
-    - [Interact](#Interact)
-        - [Local anvil chain](#local-anvil-chain)
-        - [Sepolia testnet](#sepolia-testnet)    
-    - [Estimate gas](#estimate-gas)
-    - [Format](#format)
-    - [Use the Makefile](#use-the-makefile)
+  - [Requirements](#requirements)
+  - [Quickstart](#quickstart)
+- [Usage](#usage)
+  - [Test](#test)
+  - [Deploy](#deploy)
+  - [Interact](#interact)
+  - [Estimate gas](#estimate-gas)
+  - [Format](#format)
+  - [Use the Makefile](#use-the-makefile)
 - [My Fund Me Smart Contract](#my-fund-me-smart-contract)
 
 # Getting Started
@@ -51,7 +48,7 @@ You can also test a single test function with:
 forge test --mt testFunctionName
 ```
 
-To run a forked test on a forked Seplolia testnet, you must have a rpc-url of a Sepolia testnet node. It is also preferable to have this in a `.env` file. For more information on how to do this, click [here](#deployment-to-the-sepolia-testnet). Then use the command:
+To run a forked test on a forked Seplolia testnet, you must have an rpc-url of a Sepolia testnet node:
 
 ```bash
 forge test --fork-url $SEPOLIA_RPC_URL
@@ -164,3 +161,9 @@ This contract is deployed on the Sepolia testnet. You can interact with my contr
 `0x29b5aD2b4a2930174c7e6527ff144d29f1523045`
 
 You can also check out my contract on [Etherscan](https://sepolia.etherscan.io/address/0x29b5aD2b4a2930174c7e6527ff144d29f1523045).
+
+--- 
+
+This project was created while taking the Foundry Full Course on Cyfrin Updraft. 
+
+This project is based on https://github.com/Cyfrin/foundry-fund-me-cu.
